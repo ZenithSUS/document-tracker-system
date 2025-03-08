@@ -1,8 +1,4 @@
-"use client";
-
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -35,9 +31,9 @@ const chartConfig = {
 
 export function MonthlyUsage() {
   return (
-    <Card className="bg-card dark:bg-zinc-800 border-1 dark:border-white">
+    <Card className="bg-card text-card-foreground border-1 dark:border-white">
       <CardHeader>
-        <CardTitle>Bar Chart - Horizontal</CardTitle>
+        <CardTitle>Monthly Usage</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
@@ -67,13 +63,8 @@ export function MonthlyUsage() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
+      <CardFooter className="flex flex-col gap-2">
+        <div className="leading-none text-xs text-muted-foreground"></div>
       </CardFooter>
     </Card>
   );

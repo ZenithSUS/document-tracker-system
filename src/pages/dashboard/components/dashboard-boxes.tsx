@@ -1,4 +1,4 @@
-import { Users, BookA, DollarSign, Activity } from "lucide-react";
+import { Users, BookA, BookCopy, Activity } from "lucide-react";
 import DashboardBox from "./dashboard-box";
 
 type BoxData = {
@@ -19,18 +19,18 @@ export default function DashboardBoxes() {
       description: "Active users on your platform",
     },
     {
-      id: "orders",
+      id: "documents",
       title: "Total Documents",
       value: 3245,
       icon: <BookA className="h-4 w-4" />,
       description: "Documents Monitored",
     },
     {
-      id: "revenue",
-      title: "Revenue",
-      value: "$45,231",
-      icon: <DollarSign className="h-4 w-4" />,
-      description: "Total monthly revenue",
+      id: "types",
+      title: "Total Types",
+      value: 53,
+      icon: <BookCopy className="h-4 w-4" />,
+      description: "Total Document Types",
     },
     {
       id: "active",

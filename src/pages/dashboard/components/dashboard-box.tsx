@@ -5,10 +5,6 @@ interface DashboardBoxProps {
   value: number | string;
   icon: React.ReactNode;
   description?: string;
-  change?: {
-    value: number;
-    type: "increase" | "decrease";
-  };
 }
 
 export default function DashboardBox({

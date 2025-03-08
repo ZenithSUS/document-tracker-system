@@ -1,5 +1,4 @@
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 
 import {
@@ -56,7 +55,7 @@ export function DocumentsData() {
   }, []);
 
   return (
-    <Card className="flex flex-col dark:bg-zinc-800 border-1 dark:border-white">
+    <Card className="bg-card text-card-foreground flex flex-col border-1 dark:border-white">
       <CardHeader className="items-center pb-0">
         <CardTitle>Document Traffic Visitors</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
@@ -112,11 +111,8 @@ export function DocumentsData() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total visitors
         </div>
       </CardFooter>
     </Card>
