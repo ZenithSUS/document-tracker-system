@@ -6,10 +6,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { account } from "@/lib/appwrite";
+import { Error } from "@/lib/types";
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z.string(),
+  password: z.string(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -21,9 +23,17 @@ export function LoginForm() {
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(data: FormData) {
-    toast.success("Submitted");
-    console.log(data);
+  async function onSubmit(data: FormData) {
+    try {
+      await account.createEmailPasswordSession(data.email, data.password);
+      toast.success("Logged in successfully");
+      console.log(account.get());
+      navigate("/");
+    } catch (error: unknown) {
+      const err = error as Error;
+      console.log(err.response);
+      toast.error(err.response.data.error.auth_error);
+    }
   }
 
   return (
@@ -42,7 +52,10 @@ export function LoginForm() {
           <Input id="password" type="password" {...form.register("password")} />
         </div>
       </div>
-      <Button type="submit" className=" dark:bg-blue-600 text-white">
+      <Button
+        type="submit"
+        className=" dark:bg-blue-600 text-white cursor-pointer hover:dark:bg-blue-700"
+      >
         Submit
       </Button>
       <p className="text-center">
