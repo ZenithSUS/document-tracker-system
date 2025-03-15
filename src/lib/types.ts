@@ -19,3 +19,20 @@ export type Error = {
   message: string;
   request: string;
 };
+
+export type UserType = {
+  users: Object[];
+  email?: string;
+  firstname?: string;
+  middlename?: string;
+  lastname?: string;
+};
+
+export type FormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};

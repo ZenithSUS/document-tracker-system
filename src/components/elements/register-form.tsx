@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { account, ID } from "@/lib/appwrite";
 import { createUser } from "@/actions/users";
 
@@ -27,6 +27,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export function RegisterForm() {
   const navigate = useNavigate();
+  const user = localStorage.getItem("session");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -64,6 +65,10 @@ export function RegisterForm() {
       toast.error("Something went wrong");
       console.log(error);
     }
+  }
+
+  if (user) {
+    return <Navigate to="/" />;
   }
 
   return (

@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { User2, Home, Inbox, Search, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -25,9 +25,9 @@ const items = [
     icon: Inbox,
   },
   {
-    title: "Calendar",
-    url: "/calendar",
-    icon: Calendar,
+    title: "Users",
+    url: "/users",
+    icon: User2,
   },
   {
     title: "Search",

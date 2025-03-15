@@ -5,35 +5,48 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { account } from "@/lib/appwrite";
-import { Error } from "@/lib/types";
 
 const formSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().min(2, "Enter a valid email"),
+  password: z.string().min(1, "Enter your passsword"),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export function LoginForm() {
   const navigate = useNavigate();
+  const user = localStorage.getItem("session");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
 
-  async function onSubmit(data: FormData) {
+  async function onSubmit(value: FormData) {
     try {
-      await account.createEmailPasswordSession(data.email, data.password);
-      toast.success("Logged in successfully");
-      console.log(account.get());
+      const session = await account.createEmailPasswordSession(
+        value.email,
+        value.password
+      );
+
+      if (!account) {
+        toast.error("Wrong Email or Password!");
+        return;
+      }
+
+      localStorage.setItem("session", JSON.stringify(session.current));
+      const data = await account.get();
+      localStorage.setItem("role", JSON.stringify(data.labels[0]));
+      toast.success("Logged in Successfully!");
       navigate("/");
-    } catch (error: unknown) {
-      const err = error as Error;
-      console.log(err.response);
-      toast.error(err.response.data.error.auth_error);
+    } catch (error) {
+      toast.error("Failed to submit the form, Try Again.");
     }
+  }
+
+  if (user) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -46,10 +59,24 @@ export function LoginForm() {
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" {...form.register("email")} />
+          {form.formState.errors.email ? (
+            <span className="text-red-500 h-4">
+              {form.formState.errors.email.message}
+            </span>
+          ) : (
+            <span className="text-red-500 h-4"></span>
+          )}
         </div>
         <div className="grid gap-2">
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" {...form.register("password")} />
+          {form.formState.errors.password ? (
+            <span className="text-red-500 h-4">
+              {form.formState.errors.password.message}
+            </span>
+          ) : (
+            <span className="text-red-500 h-4"></span>
+          )}
         </div>
       </div>
       <Button
