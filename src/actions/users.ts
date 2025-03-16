@@ -19,3 +19,12 @@ export const createUser = async (data: User) => {
   const urlEncodedData = qs.stringify(data);
   return await axiosClient.post("/users", urlEncodedData);
 };
+
+export const editUser = async (data: User) => {
+  const urlEncodedData = qs.stringify(data);
+  return await axiosClient.put("/users", urlEncodedData);
+};
+
+export const deleteUser = async (id: string) => {
+  return await axiosClient.delete(`/users/${id}`);
+};

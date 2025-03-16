@@ -1,24 +1,49 @@
-import { fetchUser, fetchUsers } from "@/actions/users";
-import { useQuery } from "@tanstack/react-query";
-import { User } from "@/lib/types";
+import { fetchUser, fetchUsers, createUser } from "@/actions/users";
+import {
+  useQueryClient,
+  useQuery,
+  useMutation,
+  UseBaseMutationResult,
+  QueryObserverResult,
+} from "@tanstack/react-query";
+import { AddUser, User } from "@/lib/types";
+import { toast } from "react-toastify";
+import { AxiosResponse } from "axios";
 
-export const useFetchUsers = () => {
+export const useFetchUsers = (): QueryObserverResult<User[]> => {
   return useQuery<User[]>({
-    queryKey: ["users"],
     queryFn: async () => {
       const { data } = await fetchUsers();
-      console.log(data);
       return data;
     },
+    queryKey: ["users"],
   });
 };
 
-export const usefetchUser = async (userId: string) => {
-  try {
-    const response = await fetchUser(userId);
-    return response.data;
-  } catch (err: any) {
-    console.error("Failed to fetch user:", err);
-    throw err;
-  }
+export const usefetchUser = (userId: string): QueryObserverResult<User> => {
+  return useQuery<User>({
+    queryFn: async () => {
+      const { data } = await fetchUser(userId);
+      return data;
+    },
+    queryKey: ["user", userId],
+  });
+};
+
+export const useCreateUser = (): UseBaseMutationResult<
+  AxiosResponse<AddUser>,
+  unknown,
+  User
+> => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: AddUser) => await createUser(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+    onError: (error) => {
+      toast.error("Failed to add user. Try Again.");
+      console.error("Error adding user:", error);
+    },
+  });
 };
