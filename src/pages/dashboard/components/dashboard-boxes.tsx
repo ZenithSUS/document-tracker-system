@@ -1,6 +1,6 @@
 import { Users, BookA, BookCopy, Activity } from "lucide-react";
 import DashboardBox from "./dashboard-box";
-import { UserType } from "@/lib/types";
+import { Overall } from "@/lib/types";
 
 type BoxData = {
   id: string;
@@ -10,7 +10,7 @@ type BoxData = {
   description?: string;
 };
 
-export default function DashboardBoxes({ users }: UserType) {
+export default function DashboardBoxes({ users }: Overall) {
   const boxesData: BoxData[] = [
     {
       id: "users",

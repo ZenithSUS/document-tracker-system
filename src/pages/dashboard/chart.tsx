@@ -16,36 +16,31 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
+  { browser: "Active", visitors: 275, fill: "var(--chart-1)" },
+  { browser: "Inactive", visitors: 200, fill: "var(--chart-2)" },
+  { browser: "Ongoing", visitors: 287, fill: "var(--chart-3)" },
+  { browser: "Ended", visitors: 173, fill: "var(--chart-4)" },
 ];
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  status: {
+    label: "Status",
   },
-  chrome: {
-    label: "Chrome",
+  active: {
+    label: "Active",
     color: "hsl(var(--chart-1))",
   },
-  safari: {
-    label: "Safari",
+  inactive: {
+    label: "Inactive",
     color: "hsl(var(--chart-2))",
   },
-  firefox: {
-    label: "Firefox",
+  ongoing: {
+    label: "Ongoing",
     color: "hsl(var(--chart-3))",
   },
-  edge: {
-    label: "Edge",
+  ended: {
+    label: "Ended",
     color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;
 
@@ -57,8 +52,8 @@ export function DocumentsData() {
   return (
     <Card className="bg-card text-card-foreground flex flex-col border-1 dark:border-white">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Document Traffic Visitors</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Document Statistics</CardTitle>
+        <CardDescription>Count every types of documents</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -99,7 +94,7 @@ export function DocumentsData() {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Documents
                         </tspan>
                       </text>
                     );
@@ -112,7 +107,7 @@ export function DocumentsData() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="leading-none text-muted-foreground">
-          Showing total visitors
+          Showing Document Status
         </div>
       </CardFooter>
     </Card>

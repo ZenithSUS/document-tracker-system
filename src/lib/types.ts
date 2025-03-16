@@ -1,11 +1,3 @@
-export type User = {
-  id?: string;
-  email?: string;
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
-};
-
 export type Error = {
   response: {
     data: {
@@ -20,8 +12,13 @@ export type Error = {
   request: string;
 };
 
-export type UserType = {
-  users: Object[];
+export type Overall = {
+  users?: Object[];
+  documents?: Object[];
+};
+
+export type User = {
+  id?: string;
   email?: string;
   firstname?: string;
   middlename?: string;

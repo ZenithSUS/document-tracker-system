@@ -1,28 +1,16 @@
 import { fetchUser, fetchUsers } from "@/actions/users";
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { User } from "@/lib/types";
 
 export const useFetchUsers = () => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchUsers();
-        setData(response.data);
-      } catch (err: any) {
-        setError(err);
-        console.error("Failed to fetch users:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return { data, error, isLoading };
+  return useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const { data } = await fetchUsers();
+      console.log(data);
+      return data;
+    },
+  });
 };
 
 export const usefetchUser = async (userId: string) => {

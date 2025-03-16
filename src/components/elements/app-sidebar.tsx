@@ -56,7 +56,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild className="py-5">
-                    <a onClick={() => navigate(item.url)}>
+                    <a
+                      className="cursor-pointer"
+                      onClick={() => navigate(item.url)}
+                    >
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
