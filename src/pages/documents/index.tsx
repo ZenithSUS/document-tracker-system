@@ -1,16 +1,16 @@
 import { DocumentTable } from "./data-table";
-import { useFetchUsers } from "@/hooks/use-users";
+import { useFetchDocuments } from "@/hooks/use-documents";
 import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
-export default function Users() {
-  const { isLoading, data } = useFetchUsers();
+export default function Documents() {
+  const { isLoading, data } = useFetchDocuments();
 
   return (
     <div className="flex flex-col gap-4 p-5">
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-3xl">Users</h1>
+        <h1 className="font-bold text-3xl">Documents</h1>
         <Button>+ Add Document</Button>
       </div>
 

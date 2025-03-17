@@ -1,16 +1,14 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/elements/app-sidebar";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useTheme } from "@/context/themeprovider";
 import { Button } from "../ui/button";
 import { account } from "@/lib/appwrite";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 export default function MainLayout() {
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const navigate = useNavigate();
   const user = localStorage.getItem("session");
 
   const onLogout = async () => {
@@ -19,7 +17,7 @@ export default function MainLayout() {
         await account.deleteSession("current");
         localStorage.clear();
         toast.success("Logged out Successfully!");
-        navigate("/login");
+        window.location.href = "/login";
       } catch (error) {
         toast.error("There is something wrong try again.");
         console.error(error);
@@ -39,7 +37,7 @@ export default function MainLayout() {
   }, []);
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return (window.location.href = "/login");
   }
 
   return (

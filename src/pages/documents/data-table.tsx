@@ -42,7 +42,7 @@ export function DocumentTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className="border-r border-black dark:border-white"
+                    className="border-r border-black dark:border-white text-center color-black dark:text-white"
                   >
                     {header.isPlaceholder
                       ? null
@@ -67,7 +67,7 @@ export function DocumentTable<TData, TValue>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="border-r border-black dark:border-white"
+                    className="border-r border-black dark:border-white text-center color-black dark:text-white"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>

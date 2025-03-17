@@ -42,7 +42,7 @@ export function UserTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className="border-r border-black dark:border-white"
+                    className="border-r border-black dark:border-white text-center"
                   >
                     {header.isPlaceholder
                       ? null
@@ -67,7 +67,7 @@ export function UserTable<TData, TValue>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="border-r border-black dark:border-white"
+                    className="border-r border-black dark:border-white text-center"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>

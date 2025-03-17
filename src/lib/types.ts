@@ -43,6 +43,13 @@ export type Documents = {
   status?: string;
 };
 
+export type AddDocument = {
+  name?: string;
+  owner?: string;
+  fileUrl?: string;
+  status?: string;
+};
+
 export type FormData = {
   email?: string;
   password?: string;

@@ -10,7 +10,7 @@ type BoxData = {
   description?: string;
 };
 
-export default function DashboardBoxes({ users }: Overall) {
+export default function DashboardBoxes({ users, documents }: Overall) {
   const boxesData: BoxData[] = [
     {
       id: "users",
@@ -22,7 +22,7 @@ export default function DashboardBoxes({ users }: Overall) {
     {
       id: "documents",
       title: "Total Documents",
-      value: 3245,
+      value: documents ? documents.length : 0,
       icon: <BookA className="h-4 w-4" />,
       description: "Documents Monitored",
     },

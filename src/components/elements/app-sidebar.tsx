@@ -45,7 +45,7 @@ export function AppSidebar() {
   const navigate = useNavigate();
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground text-xl mb-2">
