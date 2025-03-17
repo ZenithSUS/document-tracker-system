@@ -21,5 +21,21 @@ export const columns: ColumnDef<Documents>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string;
+      return (
+        <div
+          className={
+            status === "Active"
+              ? "text-green-800 bg-green-100"
+              : status === "Inactive" && "text-red-800 bg-red-100"
+              ? "text-red-800 bg-red-100"
+              : "text-yellow-800 bg-yellow-100"
+          }
+        >
+          {status}
+        </div>
+      );
+    },
   },
 ];
