@@ -2,8 +2,14 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
+  SortingState,
 } from "@tanstack/react-table";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 import {
   Table,
@@ -23,16 +29,23 @@ export function DocumentTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
   });
 
   return (
-    <div className="rounded-md border border-black dark:border-white">
+    <div className="rounded-md border-black dark:border-white">
       <Table>
-        <TableHeader className="border-b border-black dark:border-white">
+        <TableHeader className="border-1 border-black dark:border-white">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow
               key={headerGroup.id}
@@ -42,7 +55,7 @@ export function DocumentTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className="border-r border-black dark:border-white text-center color-black dark:text-white"
+                    className="border-1 border-black dark:border-white text-center color-black dark:text-white"
                   >
                     {header.isPlaceholder
                       ? null
@@ -67,7 +80,7 @@ export function DocumentTable<TData, TValue>({
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="border-r border-black dark:border-white text-center color-black dark:text-white"
+                    className="border-1 border-black dark:border-white text-center color-black dark:text-white"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
@@ -78,7 +91,7 @@ export function DocumentTable<TData, TValue>({
             <TableRow className="border-b border-black dark:border-white">
               <TableCell
                 colSpan={columns.length}
-                className="h-24 text-center border-r border-black dark:border-white"
+                className="h-24 text-center border-1 border-black dark:border-white"
               >
                 No results.
               </TableCell>
@@ -86,6 +99,28 @@ export function DocumentTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-end space-x-2 p-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <h1 className="text-sm text-muted-foreground">
+          Page {table.getState().pagination.pageIndex + 1} of{" "}
+          {table.getPageCount()}
+        </h1>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
